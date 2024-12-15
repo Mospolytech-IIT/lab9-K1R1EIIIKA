@@ -1,3 +1,4 @@
+"""Работа с базой данных SQLite"""
 from sqlalchemy.orm import sessionmaker
 from models import engine, User, Post
 
