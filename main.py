@@ -14,7 +14,8 @@ user2 = User(username="kirill2", email="kirill2@example.com", password="12345")
 user1 = session.query(User).filter(User.username == "kirill1").first()
 user2 = session.query(User).filter(User.username == "kirill2").first()
 
-post1 = Post(title="My First Post", content="This is the content of the first post.", user_id=user1.id)
+post1 = Post(title="My First Post", content="This is the content of the first post.",
+             user_id=user1.id)
 post2 = Post(title="Another Post", content="Content of another post.", user_id=user2.id)
 post3 = Post(title="Another Postееееееееееее", content="Content of another post.", user_id=user2.id)
 session.add_all([post1, post2, post3])

@@ -4,6 +4,7 @@ from sqlalchemy.orm import declarative_base, relationship, sessionmaker
 
 Base = declarative_base()
 
+
 class User(Base):
     """Модель пользователя"""
     __tablename__ = 'users'
@@ -15,6 +16,7 @@ class User(Base):
 
     posts = relationship('Post', back_populates='user', cascade='all, delete-orphan')
 
+
 class Post(Base):
     """Модель поста"""
     __tablename__ = 'posts'
@@ -25,6 +27,7 @@ class Post(Base):
     user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
 
     user = relationship('User', back_populates='posts')
+
 
 DATABASE_URL = "sqlite:///app.db"
 engine = create_engine(DATABASE_URL, echo=True)

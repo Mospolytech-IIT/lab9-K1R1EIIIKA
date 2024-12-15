@@ -30,13 +30,21 @@ def list_users(request: Request, db: Session = Depends(get_db)):
     """
     users = db.query(User).all()
 
-    return templates.TemplateResponse("users/list.html", {"request": request, "users": users})
+    return templates.TemplateResponse("users/list.html",
+                                      {"request": request,
+                                       "users": users})
 
 
 @app.get("/users/create/")
 def create_user_form(request: Request):
+    """Форма добавления пользователя
+    :param request: Запрос
+
+    :return: Шаблон страницы с формой добавления пользователя"""
     return templates.TemplateResponse("users/form.html",
-                                      {"request": request, "title": "Добавить пользователя", "user": None,
+                                      {"request": request,
+                                       "title": "Добавить пользователя",
+                                       "user": None,
                                        "url": "/users/create/"})
 
 
@@ -71,12 +79,15 @@ def edit_user_form(user_id: int, request: Request, db: Session = Depends(get_db)
         raise HTTPException(status_code=404, detail="User not found")
 
     return templates.TemplateResponse("users/form.html",
-                                      {"request": request, "title": "Изменить пользователя", "user": user,
+                                      {"request": request,
+                                       "title": "Изменить пользователя",
+                                       "user": user,
                                        "url": f"/users/{user_id}/edit/"})
 
 
 @app.post("/users/{user_id}/edit/")
-def edit_user(user_id: int, username: str = Form(...), email: str = Form(...), password: str = Form(...),
+def edit_user(user_id: int, username: str = Form(...),
+              email: str = Form(...), password: str = Form(...),
               db: Session = Depends(get_db)):
     """Изменение пользователя
     :param user_id: Идентификатор пользователя
@@ -125,7 +136,9 @@ def list_posts(request: Request, db: Session = Depends(get_db)):
     :return: Шаблон страницы со списком постов"""
     posts = db.query(Post).all()
 
-    return templates.TemplateResponse("posts/list.html", {"request": request, "posts": posts})
+    return templates.TemplateResponse("posts/list.html",
+                                      {"request": request,
+                                       "posts": posts})
 
 
 @app.get("/posts/create/")
@@ -138,7 +151,10 @@ def create_post_form(request: Request, db: Session = Depends(get_db)):
     users = db.query(User).all()
 
     return templates.TemplateResponse("posts/form.html",
-                                      {"request": request, "title": "Добавить пост", "post": None, "users": users,
+                                      {"request": request,
+                                       "title": "Добавить пост",
+                                       "post": None,
+                                       "users": users,
                                        "url": "/posts/create/"})
 
 
@@ -161,7 +177,8 @@ def create_post(title: str = Form(...), content: str = Form(...), user_id: int =
 
 
 @app.get("/posts/{post_id}/edit/")
-def edit_post_form(post_id: int, request: Request, db: Session = Depends(get_db)):
+def edit_post_form(post_id: int, request: Request,
+                   db: Session = Depends(get_db)):
     """Форма изменения поста
     :param post_id: Идентификатор поста
     :param request: Запрос
@@ -176,12 +193,16 @@ def edit_post_form(post_id: int, request: Request, db: Session = Depends(get_db)
     users = db.query(User).all()
 
     return templates.TemplateResponse("posts/form.html",
-                                      {"request": request, "title": "Изменить пост", "post": post, "users": users,
+                                      {"request": request,
+                                       "title": "Изменить пост",
+                                       "post": post,
+                                       "users": users,
                                        "url": f"/posts/{post_id}/edit/"})
 
 
 @app.post("/posts/{post_id}/edit/")
-def edit_post(post_id: int, title: str = Form(...), content: str = Form(...), user_id: int = Form(...),
+def edit_post(post_id: int, title: str = Form(...),
+              content: str = Form(...), user_id: int = Form(...),
               db: Session = Depends(get_db)):
     """Изменение поста
     :param post_id: Идентификатор поста
