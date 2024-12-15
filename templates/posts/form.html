@@ -1,0 +1,22 @@
+﻿{% extends "base.html" %}
+{% block content %}
+
+<h1>{{ title }}</h1>
+<form method="post" action="{{ url }}">
+    <label for="title">Заголовок:</label>
+    <input type="text" name="title" id="title" value="{{ post.title if post else '' }}" required><br><br>
+
+    <label for="content">Содержание:</label>
+    <textarea name="content" id="content" required>{{ post.content if post else '' }}</textarea><br><br>
+
+    <label for="user_id">Пользователь:</label>
+    <select name="user_id" id="user_id">
+        {% for user in users %}
+            <option value="{{ user.id }}" {% if post and post.user_id == user.id %}selected{% endif %}
+            >{{ user.username }}</option>
+        {% endfor %}
+    </select><br><br>
+
+    <button type="submit">Подтвердить</button>
+</form>
+{% endblock %}

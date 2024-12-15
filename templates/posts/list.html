@@ -1,0 +1,29 @@
+﻿{% extends "base.html" %}
+{% block content %}
+
+<h1>Посты</h1>
+<a href="/posts/create/">Добавить пост</a>
+<table>
+    <thead>
+    <tr>
+        <th>Заголовок</th>
+        <th>Содержание</th>
+        <th>Пользователь</th>
+        <th>Действия</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for post in posts %}
+    <tr>
+        <td>{{ post.title }}</td>
+        <td>{{ post.content }}</td>
+        <td>{{ post.user.username }}</td>
+        <td>
+            <a href="/posts/{{ post.id }}/edit/">Изменить</a>
+            <a href="/posts/{{ post.id }}/delete/" onclick="return confirm('Are you sure?')">Удалить</a>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

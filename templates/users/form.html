@@ -1,0 +1,16 @@
+﻿{% extends "base.html" %}
+{% block content %}
+<h1>{{ title }}</h1>
+<form method="post" action="{{ url }}">
+    <label for="username">Имя пользователя:</label>
+    <input type="text" name="username" id="username" value="{{ user.username if user else '' }}" required>
+
+    <label for="email">Email:</label>
+    <input type="email" name="email" id="email" value="{{ user.email if user else '' }}" required>
+
+    <label for="password">Пароль:</label>
+    <input type="password" name="password" id="password" value="{{ user.password if user else '' }}">
+
+    <button type="submit">Подтвердить</button>
+</form>
+{% endblock %}
